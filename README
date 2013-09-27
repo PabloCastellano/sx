@@ -22,6 +22,16 @@ To see a list of the sx commands type:
 
   $ sx help
 
+==========================
+Debian/Ubuntu Instructions
+==========================
+
+  $ sudo apt-get install libconfig++-dev
+  $ autoreconf -i
+  $ ./configure
+  $ make
+  $ sudo make install
+
 =====================
 Simple Bitcoin Client
 =====================
