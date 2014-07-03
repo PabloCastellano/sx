@@ -53,6 +53,7 @@ while [ $# -ne 0 ]; do
     case $1 in
 	--help)
 	    usage
+	    exit
 	    ;;
         --prefix)
 	    shift
@@ -81,6 +82,7 @@ while [ $# -ne 0 ]; do
 	    echo "[+] ERROR: Invalid argument \"$1\"."
 	    echo
 	    usage
+	    exit
 	    ;;
     esac
     shift
