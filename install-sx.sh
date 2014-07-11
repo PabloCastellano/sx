@@ -155,12 +155,12 @@ install_dependencies(){
             done
             [[  $U_BOOST && ${U_BOOST-x} ]] && echo "Found libboost $U_BOOST" || export U_BOOST=1.49 ; echo "Defaulting to libboost $U_BOOST"
 
-            apt-get -y install $U_DEPENDENCIES
+            apt-get -y --force-yes install $U_DEPENDENCIES
         else
             echo "Run this command before continuing:"
             echo
             echo "  sudo apt-get remove libzmq*"
-            echo "  sudo apt-get -y install $(strip_spaces $U_DEPENDENCIES)"
+            echo "  sudo apt-get -y --force-yes install $(strip_spaces $U_DEPENDENCIES)"
             echo
             continue_or_exit
         fi
