@@ -27,6 +27,7 @@ ROOT_INSTALL=1
 TOOLCHAIN_BRANCH="master"
 TOOLCHAIN_BRANCH_KEEP=0
 TOOLCHAIN_TESTNET=
+NCORE=`nproc`
 
 usage() {
     echo " [+] Install script usage:"
@@ -225,7 +226,7 @@ install_libsodium(){
     echo
     ./autogen.sh
     ./configure --prefix $INSTALL_PREFIX
-    make
+    make -j $NCORE
     make check
     make install
     $RUN_LDCONFIG
@@ -256,7 +257,7 @@ install_libzmq(){
     echo
     ./autogen.sh
     ./configure --prefix $INSTALL_PREFIX --with-libsodium=$INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     echo
@@ -285,7 +286,7 @@ install_czmq(){
     echo " --> Beginning build process now...."
     echo
     ./configure --prefix $INSTALL_PREFIX --with-libsodium=$INSTALL_PREFIX --with-libzmq=$INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     echo
@@ -317,7 +318,7 @@ install_libczmqpp(){
     echo
     autoreconf -i
     ./configure --prefix $INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     echo
@@ -349,7 +350,7 @@ install_libsecp256k1(){
     echo
     autoreconf -i
     ./configure --prefix $INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     echo
@@ -382,7 +383,7 @@ install_libbitcoin(){
     [ $TOOLCHAIN_BRANCH_KEEP -eq 0 ] && git checkout $TOOLCHAIN_BRANCH
     autoreconf -i
     ./configure --enable-leveldb --prefix $INSTALL_PREFIX --with-libsecp256k1=$INSTALL_PREFIX $TOOLCHAIN_TESTNET
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     echo
@@ -415,7 +416,7 @@ install_libwallet(){
     [ $TOOLCHAIN_BRANCH_KEEP -eq 0 ] && git checkout $TOOLCHAIN_BRANCH
     autoreconf -i
     ./configure --prefix $INSTALL_PREFIX $TOOLCHAIN_TESTNET
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     echo
@@ -448,7 +449,7 @@ install_obelisk(){
     [ $TOOLCHAIN_BRANCH_KEEP -eq 0 ] && git checkout $TOOLCHAIN_BRANCH
     autoreconf -i
     ./configure --sysconfdir $CONF_DIR --prefix $INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install 
     $RUN_LDCONFIG
     echo
@@ -482,7 +483,7 @@ install_sx(){
     [ $TOOLCHAIN_BRANCH_KEEP -eq 0 ] && git checkout $TOOLCHAIN_BRANCH
     autoreconf -i
     ./configure --sysconfdir $CONF_DIR --prefix $INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     if [ "$flavour_id" = "arch" ]; then
