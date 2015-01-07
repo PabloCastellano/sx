@@ -54,6 +54,7 @@ else
     echo
     exit
 fi
+NCORE=`nproc`
 SRC_DIR=$INSTALL_PREFIX/src
 export PKG_CONFIG_PATH=$INSTALL_PREFIX/lib/pkgconfig
 mkdir -p $SRC_DIR
@@ -170,7 +171,7 @@ install_libsodium(){
     echo
     ./autogen.sh
     ./configure --prefix $INSTALL_PREFIX
-    make
+    make -j $NCORE
     make check
     make install
     $RUN_LDCONFIG
@@ -198,7 +199,7 @@ install_libzmq(){
     echo
     ./autogen.sh
     ./configure --prefix $INSTALL_PREFIX --with-libsodium=$INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     echo
@@ -224,7 +225,7 @@ install_czmq(){
     echo " --> Beginning build process now...."
     echo
     ./configure --prefix $INSTALL_PREFIX --with-libsodium=$INSTALL_PREFIX --with-libzmq=$INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     echo
@@ -253,7 +254,7 @@ install_libczmqpp(){
     echo
     autoreconf -i
     ./configure --prefix $INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     echo
@@ -282,7 +283,7 @@ install_libsecp256k1(){
     echo
     autoreconf -i
     ./configure --prefix $INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     echo
@@ -311,7 +312,7 @@ install_libbitcoin(){
     echo
     autoreconf -i
     ./configure --enable-leveldb --prefix $INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     echo
@@ -340,7 +341,7 @@ install_libwallet(){
     echo
     autoreconf -i
     ./configure --prefix $INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     echo
@@ -369,7 +370,7 @@ install_obelisk(){
     echo
     autoreconf -i
     ./configure --sysconfdir $CONF_DIR --prefix $INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install 
     $RUN_LDCONFIG
     echo
@@ -400,7 +401,7 @@ install_sx(){
     echo
     autoreconf -i
     ./configure --sysconfdir $CONF_DIR --prefix $INSTALL_PREFIX
-    make
+    make -j $NCORE
     make install
     $RUN_LDCONFIG
     echo
